@@ -1,208 +1,394 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Skills LinkedIn para Claude</title>
-<style>
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #f8f9fa; color: #1a1a2e; }
-  header { background: linear-gradient(135deg, #0a66c2, #004182); color: white; padding: 48px 24px; text-align: center; }
-  header h1 { font-size: 2.2rem; font-weight: 700; margin-bottom: 12px; }
-  header p { font-size: 1.1rem; opacity: 0.9; max-width: 600px; margin: 0 auto 28px; }
-  .badges { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
-  .badge { background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.3); border-radius: 20px; padding: 6px 16px; font-size: 0.85rem; }
-  main { max-width: 960px; margin: 0 auto; padding: 40px 20px; }
-  .install-section { background: white; border-radius: 16px; padding: 32px; margin-bottom: 32px; box-shadow: 0 2px 12px rgba(0,0,0,0.08); }
-  .install-section h2 { font-size: 1.4rem; margin-bottom: 8px; color: #0a66c2; }
-  .install-section p { color: #555; margin-bottom: 20px; line-height: 1.6; }
-  .steps { counter-reset: step; }
-  .step { display: flex; align-items: flex-start; gap: 16px; margin-bottom: 16px; }
-  .step-num { counter-increment: step; background: #0a66c2; color: white; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.9rem; flex-shrink: 0; }
-  .step-num::before { content: counter(step); }
-  .step-text { padding-top: 6px; line-height: 1.5; }
-  .step-text code { background: #f0f4ff; color: #0a66c2; padding: 2px 6px; border-radius: 4px; font-size: 0.9em; }
-  .bundle-btn { display: inline-flex; align-items: center; gap: 10px; background: #0a66c2; color: white; padding: 14px 28px; border-radius: 10px; text-decoration: none; font-weight: 600; font-size: 1rem; transition: background 0.2s; margin-top: 4px; }
-  .bundle-btn:hover { background: #004182; }
-  .bundle-btn svg { width: 20px; height: 20px; }
-  .skills-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; margin-top: 8px; }
-  .skill-card { background: white; border-radius: 12px; padding: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.07); border: 1px solid #e8ecf0; transition: box-shadow 0.2s, transform 0.2s; }
-  .skill-card:hover { box-shadow: 0 6px 20px rgba(10,102,194,0.15); transform: translateY(-2px); }
-  .skill-icon { font-size: 1.8rem; margin-bottom: 10px; }
-  .skill-card h3 { font-size: 1rem; font-weight: 600; margin-bottom: 6px; color: #1a1a2e; }
-  .skill-card p { font-size: 0.875rem; color: #666; line-height: 1.5; margin-bottom: 14px; }
-  .skill-link { display: inline-flex; align-items: center; gap: 6px; color: #0a66c2; font-size: 0.85rem; font-weight: 600; text-decoration: none; border: 1.5px solid #0a66c2; border-radius: 6px; padding: 5px 12px; transition: all 0.2s; }
-  .skill-link:hover { background: #0a66c2; color: white; }
-  .section-title { font-size: 1.5rem; font-weight: 700; margin-bottom: 6px; color: #1a1a2e; }
-  .section-sub { color: #666; margin-bottom: 24px; }
-  footer { text-align: center; padding: 32px 20px; color: #888; font-size: 0.875rem; border-top: 1px solid #e8ecf0; margin-top: 20px; }
-  .platform-tabs { display: flex; gap: 8px; margin-bottom: 20px; flex-wrap: wrap; }
-  .tab-btn { padding: 8px 20px; border-radius: 8px; border: 1.5px solid #e0e0e0; background: white; cursor: pointer; font-size: 0.9rem; font-weight: 500; color: #555; transition: all 0.2s; }
-  .tab-btn.active { background: #0a66c2; color: white; border-color: #0a66c2; }
-  .tab-content { display: none; }
-  .tab-content.active { display: block; }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Skills LinkedIn para Claude</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #0a0a0f; --surface: #111118; --surface2: #1a1a24;
+      --border: #2a2a3a; --accent: #6c63ff; --accent2: #00d4aa;
+      --text: #e8e8f0; --muted: #8888aa;
+    }
+    body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
 
-.featured-factory {
-  grid-column: 1 / -1;
-  background: linear-gradient(135deg, #0A66C2 0%, #004182 100%);
-  border: 2px solid #0A66C2;
-}
-.featured-factory h3 { color: #fff !important; }
-.featured-factory p { color: rgba(255,255,255,0.85) !important; }
-.featured-factory .skill-icon { background: rgba(255,255,255,0.15) !important; }
-.featured-factory .download-btn { background: #FF6B35 !important; border-color: #FF6B35 !important; }
-.featured-factory .download-btn:hover { background: #e55a25 !important; }
-</style>
+    /* HEADER */
+    header {
+      background: linear-gradient(135deg, #0d0d1a 0%, #1a0a2e 50%, #0a1a0d 100%);
+      border-bottom: 1px solid var(--border);
+      padding: 72px 24px 56px; text-align: center;
+    }
+    header h1 {
+      font-size: clamp(30px, 5vw, 52px); font-weight: 800; line-height: 1.1; margin-bottom: 14px;
+      background: linear-gradient(135deg, #fff 0%, #a09aff 50%, #00d4aa 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    header p { font-size: 17px; color: var(--muted); max-width: 500px; margin: 0 auto 28px; }
+    .badges { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin-bottom: 36px; }
+    .badge {
+      background: rgba(108,99,255,0.12); border: 1px solid rgba(108,99,255,0.35);
+      color: #a09aff; font-size: 12px; font-weight: 600; letter-spacing: 1px;
+      text-transform: uppercase; padding: 5px 14px; border-radius: 999px;
+    }
+
+    /* FACTORY HERO DOWNLOAD */
+    .factory-hero {
+      background: linear-gradient(135deg, #0A66C2 0%, #004182 100%);
+      border: 2px solid #0A66C2; border-radius: 16px;
+      padding: 32px 36px; max-width: 700px; margin: 0 auto;
+      display: flex; align-items: center; justify-content: space-between; gap: 24px; flex-wrap: wrap;
+    }
+    .factory-hero-text h2 { font-size: 20px; font-weight: 800; color: #fff; margin-bottom: 6px; }
+    .factory-hero-text p { font-size: 14px; color: rgba(255,255,255,0.8); max-width: 380px; }
+    .btn-factory {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: #FF6B35; color: #fff; font-size: 15px; font-weight: 700;
+      padding: 14px 26px; border-radius: 10px; text-decoration: none;
+      white-space: nowrap; transition: background 0.2s;
+    }
+    .btn-factory:hover { background: #e55a25; }
+    .novo-tag {
+      background: #FF6B35; color: #fff; font-size: 10px; font-weight: 700;
+      padding: 2px 7px; border-radius: 12px; letter-spacing: 0.5px;
+      vertical-align: middle; margin-left: 6px;
+    }
+
+    /* CONTAINER */
+    .container { max-width: 940px; margin: 0 auto; padding: 0 24px; }
+    section { padding: 56px 0; }
+    section + section { border-top: 1px solid var(--border); }
+    h2 { font-size: 24px; font-weight: 700; margin-bottom: 6px; }
+    .section-sub { color: var(--muted); font-size: 14px; margin-bottom: 32px; }
+
+    /* BUNDLE BANNER */
+    .bundle-banner {
+      background: var(--surface2); border: 1px solid var(--border); border-radius: 14px;
+      padding: 24px 28px; display: flex; align-items: center; justify-content: space-between;
+      gap: 20px; flex-wrap: wrap;
+    }
+    .bundle-banner h3 { font-size: 16px; font-weight: 700; margin-bottom: 4px; }
+    .bundle-banner p { font-size: 13px; color: var(--muted); }
+    .btn-bundle {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: linear-gradient(135deg, var(--accent), #9c94ff); color: #fff;
+      font-size: 13px; font-weight: 600; padding: 10px 20px; border-radius: 8px;
+      text-decoration: none; white-space: nowrap; box-shadow: 0 3px 12px rgba(108,99,255,0.35);
+      transition: all 0.2s;
+    }
+    .btn-bundle:hover { transform: translateY(-1px); box-shadow: 0 5px 18px rgba(108,99,255,0.5); }
+
+    /* INSTALL TABS */
+    .tab-bar { display: flex; gap: 8px; margin-bottom: 24px; }
+    .tab-btn {
+      padding: 8px 18px; border-radius: 8px; font-size: 14px; font-weight: 600;
+      border: 1px solid var(--border); background: transparent; color: var(--muted);
+      cursor: pointer; transition: all 0.2s;
+    }
+    .tab-btn.active { background: var(--accent); border-color: var(--accent); color: #fff; }
+    .tab-content { display: none; }
+    .tab-content.active { display: block; }
+
+    .platform-card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 14px; padding: 28px;
+    }
+    .steps { display: flex; flex-direction: column; gap: 18px; }
+    .step { display: flex; gap: 14px; align-items: flex-start; }
+    .step-num {
+      width: 30px; height: 30px; border-radius: 50%; display: flex;
+      align-items: center; justify-content: center; font-size: 13px; font-weight: 700;
+      flex-shrink: 0; background: rgba(108,99,255,0.15); color: #a09aff;
+      border: 1px solid rgba(108,99,255,0.35);
+    }
+    .step-body h4 { font-size: 14px; font-weight: 600; margin-bottom: 3px; }
+    .step-body p { font-size: 13px; color: var(--muted); }
+    code { font-family: monospace; background: var(--surface2); padding: 1px 6px; border-radius: 4px; color: var(--accent2); font-size: 0.9em; }
+
+    /* SKILLS GRID */
+    .skills-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 14px;
+    }
+    .skill-card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 12px; padding: 18px 20px;
+      display: flex; flex-direction: column; gap: 6px;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .skill-card:hover { border-color: var(--accent); transform: translateY(-2px); }
+    .skill-card.featured {
+      grid-column: 1 / -1;
+      background: linear-gradient(135deg, rgba(10,102,194,0.15) 0%, rgba(0,65,130,0.15) 100%);
+      border: 1px solid rgba(10,102,194,0.5);
+      flex-direction: row; align-items: center; gap: 20px; flex-wrap: wrap;
+    }
+    .skill-card.featured:hover { border-color: #0A66C2; }
+    .skill-icon { font-size: 28px; flex-shrink: 0; }
+    .skill-name { font-size: 15px; font-weight: 700; color: #fff; }
+    .skill-desc { font-size: 13px; color: var(--muted); line-height: 1.5; flex: 1; }
+    .skill-footer { display: flex; align-items: center; justify-content: space-between; margin-top: 6px; }
+    .skill-trigger { font-size: 11px; color: var(--accent2); background: rgba(0,212,170,0.08); border-radius: 6px; padding: 3px 8px; }
+    .dl-btn {
+      display: inline-flex; align-items: center; gap: 5px;
+      font-size: 12px; font-weight: 600; color: var(--accent);
+      background: rgba(108,99,255,0.1); border: 1px solid rgba(108,99,255,0.25);
+      padding: 5px 12px; border-radius: 6px; text-decoration: none; transition: all 0.2s;
+    }
+    .dl-btn:hover { background: rgba(108,99,255,0.2); border-color: var(--accent); }
+    .dl-btn.primary {
+      background: rgba(255,107,53,0.15); border-color: rgba(255,107,53,0.4); color: #FF6B35;
+    }
+    .dl-btn.primary:hover { background: rgba(255,107,53,0.25); border-color: #FF6B35; }
+
+    footer {
+      border-top: 1px solid var(--border); padding: 32px 24px;
+      text-align: center; color: var(--muted); font-size: 13px;
+    }
+  </style>
 </head>
 <body>
 
 <header>
-  <h1>ðŸš€ Skills LinkedIn para Claude</h1>
-  <p>10 skills prontas para turbinar sua presenÃ§a no LinkedIn â€” otimizaÃ§Ã£o de perfil, criaÃ§Ã£o de posts, carrossÃ©is, DMs e muito mais.</p>
+  <h1>Skills LinkedIn<br/>para Claude</h1>
+  <p>Sistema completo de conte&uacute;do e crescimento no LinkedIn &mdash; instalável no Claude Desktop ou Claude Code.</p>
   <div class="badges">
-    <span class="badge">âœ¦ 11 Skills</span>
-    <span class="badge">âœ¦ PortuguÃªs do Brasil</span>
-    <span class="badge">âœ¦ Claude Desktop &amp; Claude Code</span>
+    <span class="badge">&#10022; 11 Skills</span>
+    <span class="badge">&#10022; Portugu&ecirc;s do Brasil</span>
+    <span class="badge">&#10022; Claude Desktop &amp; Claude Code</span>
+  </div>
+
+  <div class="factory-hero">
+    <div class="factory-hero-text">
+      <h2>&#9889; Content Factory <span class="novo-tag">NOVO</span></h2>
+      <p>Pipeline completo em uma rodada: 10 hooks virais &rarr; post Epiphany Bridge &rarr; CTA &rarr; visual HTML 1080&times;1350. A skill que encadeia tudo &mdash; voc&ecirc; n&atilde;o precisa das outras.</p>
+    </div>
+    <a href="linkedin-content-factory.skill" download class="btn-factory">&#8659; Baixar Content Factory</a>
   </div>
 </header>
 
-<main>
+<div class="container">
 
-  <!-- Bundle Download -->
-  <div class="install-section">
-    <h2>ðŸ“¦ Download do Pacote Completo</h2>
-    <p>Baixe todas as 10 skills de uma vez em um Ãºnico arquivo ZIP.</p>
-    <a href="linkedin-skills-bundle-ptbr.zip" class="bundle-btn" download>
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-      Baixar todas as 10 Skills (ZIP)
-    </a>
-  </div>
+  <!-- BUNDLE -->
+  <section>
+    <h2>&#128230; Download do Pacote Completo</h2>
+    <p class="section-sub">Todas as 11 skills de uma vez em um &uacute;nico arquivo ZIP</p>
+    <div class="bundle-banner">
+      <div>
+        <h3>Baixar tudo de uma vez</h3>
+        <p>Um &uacute;nico .zip com os 11 arquivos .skill prontos para instalar.</p>
+      </div>
+      <a href="linkedin-skills-bundle-ptbr.zip" download class="btn-bundle">&#8659; linkedin-skills-bundle-ptbr.zip</a>
+    </div>
+  </section>
 
-  <!-- How to Install -->
-  <div class="install-section">
-    <h2>âš™ï¸ Como Instalar</h2>
-    <div class="platform-tabs">
+  <!-- COMO INSTALAR -->
+  <section>
+    <h2>&#9881; Como Instalar</h2>
+    <p class="section-sub">Escolha sua plataforma</p>
+
+    <div class="tab-bar">
       <button class="tab-btn active" onclick="showTab('cowork')">Claude Desktop (Cowork)</button>
       <button class="tab-btn" onclick="showTab('code')">Claude Code (CLI)</button>
     </div>
 
     <div id="tab-cowork" class="tab-content active">
-      <div class="steps">
-        <div class="step"><div class="step-num"></div><div class="step-text">Baixe o arquivo <code>.skill</code> desejado clicando em "Baixar Skill" na lista abaixo.</div></div>
-        <div class="step"><div class="step-num"></div><div class="step-text">No Claude Desktop, acesse <strong>ConfiguraÃ§Ãµes â†’ Capacidades â†’ Skills</strong>.</div></div>
-        <div class="step"><div class="step-num"></div><div class="step-text">Clique em <strong>"Adicionar Skill"</strong> e selecione o arquivo <code>.skill</code> baixado.</div></div>
-        <div class="step"><div class="step-num"></div><div class="step-text">Pronto! A skill aparecerÃ¡ no seu modo Cowork. Basta ativÃ¡-la na conversa.</div></div>
+      <div class="platform-card">
+        <div class="steps">
+          <div class="step">
+            <div class="step-num">1</div>
+            <div class="step-body">
+              <h4>Baixe o arquivo <code>.skill</code></h4>
+              <p>Clique em "Baixar Skill" em qualquer card abaixo, ou baixe o bundle ZIP.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">2</div>
+            <div class="step-body">
+              <h4>Abra o Claude Desktop</h4>
+              <p>Acesse <strong>Configura&ccedil;&otilde;es &rarr; Capacidades &rarr; Skills</strong>.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">3</div>
+            <div class="step-body">
+              <h4>Clique em &ldquo;Adicionar Skill&rdquo;</h4>
+              <p>Selecione o arquivo <code>.skill</code> baixado. Repita para cada skill.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">4</div>
+            <div class="step-body">
+              <h4>Use no chat</h4>
+              <p>A skill ativa automaticamente quando voc&ecirc; menciona o t&oacute;pico &mdash; ou use <code>/nome-da-skill</code>.</p>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
 
     <div id="tab-code" class="tab-content">
-      <div class="steps">
-        <div class="step"><div class="step-num"></div><div class="step-text">Baixe o arquivo <code>.skill</code> desejado e extraia o conteÃºdo â€” vocÃª terÃ¡ uma pasta com um arquivo <code>SKILL.md</code>.</div></div>
-        <div class="step"><div class="step-num"></div><div class="step-text">Mova a pasta extraÃ­da para <code>~/.claude/skills/</code> (crie o diretÃ³rio se nÃ£o existir).</div></div>
-        <div class="step"><div class="step-num"></div><div class="step-text">No Claude Code, use <code>/nome-da-skill</code> para ativar a skill na conversa.</div></div>
-        <div class="step"><div class="step-num"></div><div class="step-text">Ou edite <code>~/.claude/settings.json</code> para adicionar a skill Ã  sua configuraÃ§Ã£o global.</div></div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Skills List -->
-  <div>
-    <div class="section-title">ðŸŽ¯ Skills DisponÃ­veis</div>
-    <p class="section-sub">Clique em "Baixar Skill" para instalar individualmente.</p>
-    <div class="skills-grid">
-
-      
-      <div class="skill-card featured-factory">
-        <div class="skill-icon">&#9889;</div>
-        <div class="skill-info">
-          <h3>Content Factory <span style="background:#FF6B35;color:#fff;font-size:11px;padding:2px 8px;border-radius:20px;vertical-align:middle;margin-left:6px;font-weight:700;">NOVO</span></h3>
-          <p>Pipeline completo em uma rodada: 10 hooks virais &rarr; post Epiphany Bridge &rarr; CTA &rarr; visual HTML 1080x1350. A skill que encadeia tudo &mdash; voc&#234; n&#227;o precisa das outras.</p>
-          <a href="https://sergerehem.github.io/linkedin-skills/linkedin-content-factory.skill" class="skill-link" download>&#8659; Baixar Skill</a>
+      <div class="platform-card">
+        <div class="steps">
+          <div class="step">
+            <div class="step-num">1</div>
+            <div class="step-body">
+              <h4>Baixe e extraia o <code>.skill</code></h4>
+              <p>Cada arquivo <code>.skill</code> &eacute; um zip. Extraia &mdash; voc&ecirc; ter&aacute; uma pasta com <code>SKILL.md</code>.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">2</div>
+            <div class="step-body">
+              <h4>Mova para a pasta de skills</h4>
+              <p>Global: <code>~/.claude/skills/</code> &mdash; Local: <code>.claude/skills/</code> na raiz do projeto.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">3</div>
+            <div class="step-body">
+              <h4>Use no terminal</h4>
+              <p>Dentro de uma sess&atilde;o <code>claude</code>, use <code>/nome-da-skill</code> ou o trigger natural.</p>
+            </div>
+          </div>
         </div>
       </div>
-<div class="skill-card">
-        <div class="skill-icon">ðŸ”</div>
-        <h3>Otimizador de Perfil</h3>
-        <p>Audite e reescreva seu perfil LinkedIn para converter visitantes em leads â€” headline, sobre e experiÃªncia.</p>
-        <a href="linkedin-profile-optimizer.skill" class="skill-link" download>â¬‡ Baixar Skill</a>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section>
+    <h2>&#127919; Skills Dispon&iacute;veis</h2>
+    <p class="section-sub">Clique em &ldquo;Baixar Skill&rdquo; para instalar individualmente</p>
+
+    <div class="skills-grid">
+
+      <!-- FACTORY — FEATURED -->
+      <div class="skill-card featured">
+        <div class="skill-icon">&#9889;</div>
+        <div style="flex:1">
+          <div class="skill-name">Content Factory <span class="novo-tag">NOVO</span></div>
+          <div class="skill-desc">Pipeline completo em uma rodada: 10 hooks virais &rarr; post Epiphany Bridge &rarr; CTA &rarr; visual HTML 1080&times;1350. A skill que encadeia tudo &mdash; voc&ecirc; n&atilde;o precisa das outras.</div>
+          <div class="skill-footer">
+            <span class="skill-trigger">factory / pipeline de conte&uacute;do</span>
+            <a href="linkedin-content-factory.skill" download class="dl-btn primary">&#8659; Baixar Skill</a>
+          </div>
+        </div>
       </div>
 
       <div class="skill-card">
-        <div class="skill-icon">ðŸª</div>
-        <h3>Criador de Hooks Virais</h3>
-        <p>Escreva primeiras linhas de alto impacto que forÃ§am o leitor a clicar em "Ver mais".</p>
-        <a href="viral-hook-writer.skill" class="skill-link" download>â¬‡ Baixar Skill</a>
+        <div class="skill-icon">&#128100;</div>
+        <div class="skill-name">Otimizador de Perfil</div>
+        <div class="skill-desc">Audite e reescreva seu perfil LinkedIn para converter visitantes em leads &mdash; headline, sobre e experi&ecirc;ncia.</div>
+        <div class="skill-footer">
+          <span class="skill-trigger">otimize meu LinkedIn</span>
+          <a href="linkedin-profile-optimizer.skill" download class="dl-btn">&#8659; Baixar Skill</a>
+        </div>
       </div>
 
       <div class="skill-card">
-        <div class="skill-icon">âœï¸</div>
-        <h3>Gerador de Posts LinkedIn</h3>
-        <p>Transforme ideias brutas em posts de alto desempenho usando frameworks comprovados.</p>
-        <a href="linkedin-post-generator.skill" class="skill-link" download>â¬‡ Baixar Skill</a>
+        <div class="skill-icon">&#129693;</div>
+        <div class="skill-name">Criador de Hooks Virais</div>
+        <div class="skill-desc">Escreva primeiras linhas de alto impacto que for&ccedil;am o leitor a clicar em &ldquo;Ver mais&rdquo;.</div>
+        <div class="skill-footer">
+          <span class="skill-trigger">escreva um hook</span>
+          <a href="viral-hook-writer.skill" download class="dl-btn">&#8659; Baixar Skill</a>
+        </div>
       </div>
 
       <div class="skill-card">
-        <div class="skill-icon">ðŸŽ¨</div>
-        <h3>Designer de ConteÃºdo Visual</h3>
-        <p>Gere grÃ¡ficos HTML/CSS para LinkedIn: quote cards, stat cards e infogrÃ¡ficos em 1080Ã—1350.</p>
-        <a href="visual-content-designer.skill" class="skill-link" download>â¬‡ Baixar Skill</a>
+        <div class="skill-icon">&#9999;</div>
+        <div class="skill-name">Gerador de Posts LinkedIn</div>
+        <div class="skill-desc">Transforme ideias brutas em posts de alto desempenho usando frameworks comprovados.</div>
+        <div class="skill-footer">
+          <span class="skill-trigger">escreva um post</span>
+          <a href="linkedin-post-generator.skill" download class="dl-btn">&#8659; Baixar Skill</a>
+        </div>
       </div>
 
       <div class="skill-card">
-        <div class="skill-icon">ðŸ’¬</div>
-        <h3>Skill de Conversa por DM</h3>
-        <p>Escreva sequÃªncias de DM personalizadas que iniciam conversas reais â€” sem parecer spam.</p>
-        <a href="dm-conversation-skill.skill" class="skill-link" download>â¬‡ Baixar Skill</a>
+        <div class="skill-icon">&#127912;</div>
+        <div class="skill-name">Designer de Conte&uacute;do Visual</div>
+        <div class="skill-desc">Gere gr&aacute;ficos HTML/CSS para LinkedIn: quote cards, stat cards e infogr&aacute;ficos em 1080&times;1350.</div>
+        <div class="skill-footer">
+          <span class="skill-trigger">crie um gr&aacute;fico</span>
+          <a href="visual-content-designer.skill" download class="dl-btn">&#8659; Baixar Skill</a>
+        </div>
       </div>
 
       <div class="skill-card">
-        <div class="skill-icon">ðŸ’¡</div>
-        <h3>Escritor de EstratÃ©gia de ComentÃ¡rios</h3>
-        <p>Escreva comentÃ¡rios estratÃ©gicos no LinkedIn que constroem autoridade e geram pipeline.</p>
-        <a href="comment-strategy-writer.skill" class="skill-link" download>â¬‡ Baixar Skill</a>
+        <div class="skill-icon">&#128172;</div>
+        <div class="skill-name">Skill de Conversa por DM</div>
+        <div class="skill-desc">Escreva sequ&ecirc;ncias de DM personalizadas que iniciam conversas reais &mdash; sem parecer spam.</div>
+        <div class="skill-footer">
+          <span class="skill-trigger">escreva uma DM</span>
+          <a href="dm-conversation-skill.skill" download class="dl-btn">&#8659; Baixar Skill</a>
+        </div>
       </div>
 
       <div class="skill-card">
-        <div class="skill-icon">ðŸ“£</div>
-        <h3>Escritor de CTA Hand-Raiser</h3>
-        <p>Escreva CTAs para LinkedIn que convertem leitores em leads sem acionar filtros de engajamento.</p>
-        <a href="cta-handraiser-writer.skill" class="skill-link" download>â¬‡ Baixar Skill</a>
+        <div class="skill-icon">&#128161;</div>
+        <div class="skill-name">Escritor de Coment&aacute;rios Estrat&eacute;gicos</div>
+        <div class="skill-desc">Escreva coment&aacute;rios estrat&eacute;gicos no LinkedIn que constroem autoridade e geram pipeline.</div>
+        <div class="skill-footer">
+          <span class="skill-trigger">escreva um coment&aacute;rio</span>
+          <a href="comment-strategy-writer.skill" download class="dl-btn">&#8659; Baixar Skill</a>
+        </div>
       </div>
 
       <div class="skill-card">
-        <div class="skill-icon">ðŸŽ </div>
-        <h3>Construtor de Posts Carrossel</h3>
-        <p>Crie carrossÃ©is no LinkedIn com copy slide a slide e HTML/CSS opcional para visuais.</p>
-        <a href="carousel-post-builder.skill" class="skill-link" download>â¬‡ Baixar Skill</a>
+        <div class="skill-icon">&#128227;</div>
+        <div class="skill-name">Escritor de CTA Hand-Raiser</div>
+        <div class="skill-desc">Escreva CTAs para LinkedIn que convertem leitores em leads sem acionar filtros de engajamento.</div>
+        <div class="skill-footer">
+          <span class="skill-trigger">escreva um CTA</span>
+          <a href="cta-handraiser-writer.skill" download class="dl-btn">&#8659; Baixar Skill</a>
+        </div>
       </div>
 
       <div class="skill-card">
-        <div class="skill-icon">ðŸ“…</div>
-        <h3>Planejador de CalendÃ¡rio de ConteÃºdo</h3>
-        <p>Monte um calendÃ¡rio de conteÃºdo de 4 semanas com datas reais, pilares e prÃ©via dos hooks.</p>
-        <a href="content-calendar-planner.skill" class="skkill-link" download>â¬‡ Baixar Skill</a>
+        <div class="skill-icon">&#127895;</div>
+        <div class="skill-name">Construtor de Posts Carrossel</div>
+        <div class="skill-desc">Crie carross&eacute;is no LinkedIn com copy slide a slide e HTML/CSS opcional para visuais.</div>
+        <div class="skill-footer">
+          <span class="skill-trigger">crie um carrossel</span>
+          <a href="carousel-post-builder.skill" download class="dl-btn">&#8659; Baixar Skill</a>
+        </div>
       </div>
 
       <div class="skill-card">
-        <div class="skill-icon">â™»¾ï¸</div>
-        <h3>Repurposer de ConteÃºdo LinkedIn</h3>
-        <p>Transforme um post do LinkedIn em mÃºltiplos formatos para outras plataformas com cronograma escalonado.</p>
-        <a href="linkedin-content-repurposer.skill" class="skill-link" download>â¬‡ Baixar Skill</a>
+        <div class="skill-icon">&#128197;</div>
+        <div class="skill-name">Planejador de Calend&aacute;rio de Conte&uacute;do</div>
+        <div class="skill-desc">Monte um calend&aacute;rio de conte&uacute;do de 4 semanas com datas reais, pilares e pr&eacute;via dos hooks.</div>
+        <div class="skill-footer">
+          <span class="skill-trigger">calend&aacute;rio de conte&uacute;do</span>
+          <a href="content-calendar-planner.skill" download class="dl-btn">&#8659; Baixar Skill</a>
+        </div>
+      </div>
+
+      <div class="skill-card">
+        <div class="skill-icon">&#9854;</div>
+        <div class="skill-name">Repurposer de Conte&uacute;do LinkedIn</div>
+        <div class="skill-desc">Transforme um post do LinkedIn em m&uacute;ltiplos formatos para outras plataformas com cronograma escalonado.</div>
+        <div class="skill-footer">
+          <span class="skill-trigger">repurpose conte&uacute;do</span>
+          <a href="linkedin-content-repurposer.skill" download class="dl-btn">&#8659; Baixar Skill</a>
+        </div>
       </div>
 
     </div>
-  </div>
+  </section>
 
-</main>
+</div>
 
 <footer>
-  <p>Skills criadas com Claude BÂ· Publicadas em GitHub Pages</p>
+  <p>Feito com Claude &mdash; Cowork Mode &middot; <a href="https://sergerehem.github.io/linkedin-skills/skills-ptbr-guia.html" style="color:var(--accent2);text-decoration:none;">Ver guia completo</a></p>
 </footer>
 
 <script>
 function showTab(id) {
-  document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
-  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
   document.getElementById('tab-' + id).classList.add('active');
   event.target.classList.add('active');
 }
