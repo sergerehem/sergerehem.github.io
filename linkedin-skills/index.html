@@ -41,17 +41,28 @@
   .tab-btn.active { background: #0a66c2; color: white; border-color: #0a66c2; }
   .tab-content { display: none; }
   .tab-content.active { display: block; }
+
+.featured-factory {
+  grid-column: 1 / -1;
+  background: linear-gradient(135deg, #0A66C2 0%, #004182 100%);
+  border: 2px solid #0A66C2;
+}
+.featured-factory h3 { color: #fff !important; }
+.featured-factory p { color: rgba(255,255,255,0.85) !important; }
+.featured-factory .skill-icon { background: rgba(255,255,255,0.15) !important; }
+.featured-factory .download-btn { background: #FF6B35 !important; border-color: #FF6B35 !important; }
+.featured-factory .download-btn:hover { background: #e55a25 !important; }
 </style>
 </head>
 <body>
 
 <header>
-  <h1>🚀 Skills LinkedIn para Claude</h1>
-  <p>10 skills prontas para turbinar sua presença no LinkedIn — otimização de perfil, criação de posts, carrosséis, DMs e muito mais.</p>
+  <h1>ðŸš€ Skills LinkedIn para Claude</h1>
+  <p>10 skills prontas para turbinar sua presenÃ§a no LinkedIn â€” otimizaÃ§Ã£o de perfil, criaÃ§Ã£o de posts, carrossÃ©is, DMs e muito mais.</p>
   <div class="badges">
-    <span class="badge">✦ 10 Skills</span>
-    <span class="badge">✦ Português do Brasil</span>
-    <span class="badge">✦ Claude Desktop &amp; Claude Code</span>
+    <span class="badge">âœ¦ 11 Skills</span>
+    <span class="badge">âœ¦ PortuguÃªs do Brasil</span>
+    <span class="badge">âœ¦ Claude Desktop &amp; Claude Code</span>
   </div>
 </header>
 
@@ -59,8 +70,8 @@
 
   <!-- Bundle Download -->
   <div class="install-section">
-    <h2>📦 Download do Pacote Completo</h2>
-    <p>Baixe todas as 10 skills de uma vez em um único arquivo ZIP.</p>
+    <h2>ðŸ“¦ Download do Pacote Completo</h2>
+    <p>Baixe todas as 10 skills de uma vez em um Ãºnico arquivo ZIP.</p>
     <a href="linkedin-skills-bundle-ptbr.zip" class="bundle-btn" download>
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
       Baixar todas as 10 Skills (ZIP)
@@ -69,7 +80,7 @@
 
   <!-- How to Install -->
   <div class="install-section">
-    <h2>⚙️ Como Instalar</h2>
+    <h2>âš™ï¸ Como Instalar</h2>
     <div class="platform-tabs">
       <button class="tab-btn active" onclick="showTab('cowork')">Claude Desktop (Cowork)</button>
       <button class="tab-btn" onclick="showTab('code')">Claude Code (CLI)</button>
@@ -78,96 +89,105 @@
     <div id="tab-cowork" class="tab-content active">
       <div class="steps">
         <div class="step"><div class="step-num"></div><div class="step-text">Baixe o arquivo <code>.skill</code> desejado clicando em "Baixar Skill" na lista abaixo.</div></div>
-        <div class="step"><div class="step-num"></div><div class="step-text">No Claude Desktop, acesse <strong>Configurações → Capacidades → Skills</strong>.</div></div>
+        <div class="step"><div class="step-num"></div><div class="step-text">No Claude Desktop, acesse <strong>ConfiguraÃ§Ãµes â†’ Capacidades â†’ Skills</strong>.</div></div>
         <div class="step"><div class="step-num"></div><div class="step-text">Clique em <strong>"Adicionar Skill"</strong> e selecione o arquivo <code>.skill</code> baixado.</div></div>
-        <div class="step"><div class="step-num"></div><div class="step-text">Pronto! A skill aparecerá no seu modo Cowork. Basta ativá-la na conversa.</div></div>
+        <div class="step"><div class="step-num"></div><div class="step-text">Pronto! A skill aparecerÃ¡ no seu modo Cowork. Basta ativÃ¡-la na conversa.</div></div>
       </div>
     </div>
 
     <div id="tab-code" class="tab-content">
       <div class="steps">
-        <div class="step"><div class="step-num"></div><div class="step-text">Baixe o arquivo <code>.skill</code> desejado e extraia o conteúdo — você terá uma pasta com um arquivo <code>SKILL.md</code>.</div></div>
-        <div class="step"><div class="step-num"></div><div class="step-text">Mova a pasta extraída para <code>~/.claude/skills/</code> (crie o diretório se não existir).</div></div>
+        <div class="step"><div class="step-num"></div><div class="step-text">Baixe o arquivo <code>.skill</code> desejado e extraia o conteÃºdo â€” vocÃª terÃ¡ uma pasta com um arquivo <code>SKILL.md</code>.</div></div>
+        <div class="step"><div class="step-num"></div><div class="step-text">Mova a pasta extraÃ­da para <code>~/.claude/skills/</code> (crie o diretÃ³rio se nÃ£o existir).</div></div>
         <div class="step"><div class="step-num"></div><div class="step-text">No Claude Code, use <code>/nome-da-skill</code> para ativar a skill na conversa.</div></div>
-        <div class="step"><div class="step-num"></div><div class="step-text">Ou edite <code>~/.claude/settings.json</code> para adicionar a skill à sua configuração global.</div></div>
+        <div class="step"><div class="step-num"></div><div class="step-text">Ou edite <code>~/.claude/settings.json</code> para adicionar a skill Ã  sua configuraÃ§Ã£o global.</div></div>
       </div>
     </div>
   </div>
 
   <!-- Skills List -->
   <div>
-    <div class="section-title">🎯 Skills Disponíveis</div>
+    <div class="section-title">ðŸŽ¯ Skills DisponÃ­veis</div>
     <p class="section-sub">Clique em "Baixar Skill" para instalar individualmente.</p>
     <div class="skills-grid">
 
-      <div class="skill-card">
-        <div class="skill-icon">🔍</div>
+      
+      <div class="skill-card featured-factory">
+        <div class="skill-icon">&#9889;</div>
+        <div class="skill-info">
+          <h3>Content Factory <span style="background:#FF6B35;color:#fff;font-size:11px;padding:2px 8px;border-radius:20px;vertical-align:middle;margin-left:6px;font-weight:700;">NOVO</span></h3>
+          <p>Pipeline completo em uma rodada: 10 hooks virais &rarr; post Epiphany Bridge &rarr; CTA &rarr; visual HTML 1080x1350. A skill que encadeia tudo &mdash; voc&#234; n&#227;o precisa das outras.</p>
+          <a href="https://sergerehem.github.io/linkedin-skills/linkedin-content-factory.skill" class="skill-link" download>&#8659; Baixar Skill</a>
+        </div>
+      </div>
+<div class="skill-card">
+        <div class="skill-icon">ðŸ”</div>
         <h3>Otimizador de Perfil</h3>
-        <p>Audite e reescreva seu perfil LinkedIn para converter visitantes em leads — headline, sobre e experiência.</p>
-        <a href="linkedin-profile-optimizer.skill" class="skill-link" download>⬇ Baixar Skill</a>
+        <p>Audite e reescreva seu perfil LinkedIn para converter visitantes em leads â€” headline, sobre e experiÃªncia.</p>
+        <a href="linkedin-profile-optimizer.skill" class="skill-link" download>â¬‡ Baixar Skill</a>
       </div>
 
       <div class="skill-card">
-        <div class="skill-icon">🪝</div>
+        <div class="skill-icon">ðŸª</div>
         <h3>Criador de Hooks Virais</h3>
-        <p>Escreva primeiras linhas de alto impacto que forçam o leitor a clicar em "Ver mais".</p>
-        <a href="viral-hook-writer.skill" class="skill-link" download>⬇ Baixar Skill</a>
+        <p>Escreva primeiras linhas de alto impacto que forÃ§am o leitor a clicar em "Ver mais".</p>
+        <a href="viral-hook-writer.skill" class="skill-link" download>â¬‡ Baixar Skill</a>
       </div>
 
       <div class="skill-card">
-        <div class="skill-icon">✍️</div>
+        <div class="skill-icon">âœï¸</div>
         <h3>Gerador de Posts LinkedIn</h3>
         <p>Transforme ideias brutas em posts de alto desempenho usando frameworks comprovados.</p>
-        <a href="linkedin-post-generator.skill" class="skill-link" download>⬇ Baixar Skill</a>
+        <a href="linkedin-post-generator.skill" class="skill-link" download>â¬‡ Baixar Skill</a>
       </div>
 
       <div class="skill-card">
-        <div class="skill-icon">🎨</div>
-        <h3>Designer de Conteúdo Visual</h3>
-        <p>Gere gráficos HTML/CSS para LinkedIn: quote cards, stat cards e infográficos em 1080×1350.</p>
-        <a href="visual-content-designer.skill" class="skill-link" download>⬇ Baixar Skill</a>
+        <div class="skill-icon">ðŸŽ¨</div>
+        <h3>Designer de ConteÃºdo Visual</h3>
+        <p>Gere grÃ¡ficos HTML/CSS para LinkedIn: quote cards, stat cards e infogrÃ¡ficos em 1080Ã—1350.</p>
+        <a href="visual-content-designer.skill" class="skill-link" download>â¬‡ Baixar Skill</a>
       </div>
 
       <div class="skill-card">
-        <div class="skill-icon">💬</div>
+        <div class="skill-icon">ðŸ’¬</div>
         <h3>Skill de Conversa por DM</h3>
-        <p>Escreva sequências de DM personalizadas que iniciam conversas reais — sem parecer spam.</p>
-        <a href="dm-conversation-skill.skill" class="skill-link" download>⬇ Baixar Skill</a>
+        <p>Escreva sequÃªncias de DM personalizadas que iniciam conversas reais â€” sem parecer spam.</p>
+        <a href="dm-conversation-skill.skill" class="skill-link" download>â¬‡ Baixar Skill</a>
       </div>
 
       <div class="skill-card">
-        <div class="skill-icon">💡</div>
-        <h3>Escritor de Estratégia de Comentários</h3>
-        <p>Escreva comentários estratégicos no LinkedIn que constroem autoridade e geram pipeline.</p>
-        <a href="comment-strategy-writer.skill" class="skill-link" download>⬇ Baixar Skill</a>
+        <div class="skill-icon">ðŸ’¡</div>
+        <h3>Escritor de EstratÃ©gia de ComentÃ¡rios</h3>
+        <p>Escreva comentÃ¡rios estratÃ©gicos no LinkedIn que constroem autoridade e geram pipeline.</p>
+        <a href="comment-strategy-writer.skill" class="skill-link" download>â¬‡ Baixar Skill</a>
       </div>
 
       <div class="skill-card">
-        <div class="skill-icon">📣</div>
+        <div class="skill-icon">ðŸ“£</div>
         <h3>Escritor de CTA Hand-Raiser</h3>
         <p>Escreva CTAs para LinkedIn que convertem leitores em leads sem acionar filtros de engajamento.</p>
-        <a href="cta-handraiser-writer.skill" class="skill-link" download>⬇ Baixar Skill</a>
+        <a href="cta-handraiser-writer.skill" class="skill-link" download>â¬‡ Baixar Skill</a>
       </div>
 
       <div class="skill-card">
-        <div class="skill-icon">🎠</div>
+        <div class="skill-icon">ðŸŽ </div>
         <h3>Construtor de Posts Carrossel</h3>
-        <p>Crie carrosséis no LinkedIn com copy slide a slide e HTML/CSS opcional para visuais.</p>
-        <a href="carousel-post-builder.skill" class="skill-link" download>⬇ Baixar Skill</a>
+        <p>Crie carrossÃ©is no LinkedIn com copy slide a slide e HTML/CSS opcional para visuais.</p>
+        <a href="carousel-post-builder.skill" class="skill-link" download>â¬‡ Baixar Skill</a>
       </div>
 
       <div class="skill-card">
-        <div class="skill-icon">📅</div>
-        <h3>Planejador de Calendário de Conteúdo</h3>
-        <p>Monte um calendário de conteúdo de 4 semanas com datas reais, pilares e prévia dos hooks.</p>
-        <a href="content-calendar-planner.skill" class="skkill-link" download>⬇ Baixar Skill</a>
+        <div class="skill-icon">ðŸ“…</div>
+        <h3>Planejador de CalendÃ¡rio de ConteÃºdo</h3>
+        <p>Monte um calendÃ¡rio de conteÃºdo de 4 semanas com datas reais, pilares e prÃ©via dos hooks.</p>
+        <a href="content-calendar-planner.skill" class="skkill-link" download>â¬‡ Baixar Skill</a>
       </div>
 
       <div class="skill-card">
-        <div class="skill-icon">♻�️</div>
-        <h3>Repurposer de Conteúdo LinkedIn</h3>
-        <p>Transforme um post do LinkedIn em múltiplos formatos para outras plataformas com cronograma escalonado.</p>
-        <a href="linkedin-content-repurposer.skill" class="skill-link" download>⬇ Baixar Skill</a>
+        <div class="skill-icon">â™»¾ï¸</div>
+        <h3>Repurposer de ConteÃºdo LinkedIn</h3>
+        <p>Transforme um post do LinkedIn em mÃºltiplos formatos para outras plataformas com cronograma escalonado.</p>
+        <a href="linkedin-content-repurposer.skill" class="skill-link" download>â¬‡ Baixar Skill</a>
       </div>
 
     </div>
@@ -176,7 +196,7 @@
 </main>
 
 <footer>
-  <p>Skills criadas com Claude B· Publicadas em GitHub Pages</p>
+  <p>Skills criadas com Claude BÂ· Publicadas em GitHub Pages</p>
 </footer>
 
 <script>
